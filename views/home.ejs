@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title><%= title%></title>
+    <script src="https://kit.fontawesome.com/99ca9c3ebe.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="/css/home.css">
+</head>
+<body>
+    <div class="display">  <!-- the display where the todo list is rendered -->
+        <div class="heading">  <!-- The heading of TODO APP -->
+            <h1>TODO App</h1>
+        </div>
+        <div class="description">  <!-- The text input area -->
+            <h3>&nbsp; DESCRIPTION</h3>
+        </div>
+        <form action="/create-task" method="POST">  <!-- Form to store the response by the user -->
+            <input type="text"  name="desc" placeholder=" What do you need to do?" required>  <!-- The work is provided here -->
+            <div class="details">   <!-- Details of the work if its personal and the due date -->
+                <div class="category">   <!-- Category of the work -->
+                    <h3>&nbsp;CATEGORY</h3>
+                    <select name="dropdown" id="dropdown">  <!-- options on the category -->
+                        <option value="">Choose a category &nbsp; &nbsp; &nbsp; </option>
+                        <option value="personal">Personal</option>
+                        <option value="work">Work</option>
+                        <option value="school">School</option>
+                        <option value="cleaning">Cleaning</option>
+                        <option value="other">Other</option>
+                    </select>
+                </div>  <!-- category div closed -->
+                <div class="due-date">    <!-- due date  -->
+                    <h3>&nbsp;DUE DATE</h3> 
+                    <input type="date" name="date" id="date">  <!-- Input area for it -->
+                </div>
+            </div>      <!-- Deatils div closed -->
+            <div class="buttons">   <!-- Buttons created to add Tasks -->
+                <button type="submit" id="add">
+                    <i class="fas fa-plus"></i>
+                    ADD TASK
+                </button>
+            </div>
+        </form>    <!--Form closed which collects user data -->
+        <form action="/delete-task" method="GET">   <!-- Form for processing user's request -->
+            <div class="buttons">     <!-- Buttons created to Delete the task -->
+                <button type="submit" id="delete">
+                    <i class="fas fa-trash-alt"></i>
+                    DELETE TASKS
+                </button>
+            </div>
+            <%for(let i of task_list){%>   <!-- Ejs code for creating cards as per the requirement of the user -->
+                <div class="cards">         <!-- Cards displaying the Tasks with due date and Category -->
+                    <div class="box">
+                        <input type="checkbox" id="active" name="<%=i._id%>">  <!-- Checkboox if user wants to select a task and delete it.  -->
+                    </div>
+                    <div class="view-details">      <!--   Tasks viewing div containing both description and due date  -->
+                        <label for="view-task" id="view-tasks"><%= i.desc%></label>
+                        <i class="fas fa-calendar-alt" id="cal-icon">
+                            <span id="view-date"><%= i.date.toDateString()%></span>
+                        </i>
+                    </div>
+                    <div class="view-category">    <!-- Viewing the category to the user -->
+                        <div class="view-button">
+                            <span><%= i.dropdown%></span>
+                        </div>
+                    </div>
+                </div>     <!-- Cards closed -->
+            <%}%>
+        </form>    <!-- Forms closed  -->
+    </div>
+    <script src="/js/home.js"></script>
+</body>
+</html>
