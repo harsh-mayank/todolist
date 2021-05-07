@@ -1,9 +1,12 @@
 const express = require('express');               //importing express 
 const path = require('path');                     //importing path
-const port = 8000;                                //assigning development server port number
+const port = process.env.PORT || '8000';                                //assigning development server port number
+
+const app = express();                            //creating app using express
+app.set("port", port);
 
 const mongoose = require('./config/mongoose');    //importing mongoose from config 
-const app = express();                            //creating app using express
+
 app.set('view engine','ejs');                     //setting up view engine
 app.set('views','./views');                       //importing views folder
 app.use(express.urlencoded());                    //using urlencoded which is a built-in middleware func
